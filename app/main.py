@@ -1,6 +1,8 @@
 import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import List
 
 # requires python -m nltk.downloader omw-1.4
 from nltk.corpus import wordnet
@@ -16,7 +18,18 @@ app.add_middleware(
 
 pos_labels = {'a': 'adjective', 's': 'adjective', 'r': 'adverb', 'n': 'noun', 'v': 'verb'}
 
-@app.get("/synonyms")
+class SynonymResponseTerm(BaseModel):
+    pos: str
+    pos_label: str
+    definition: str
+    examples: List[str]
+    synonyms: List[str]
+
+class SynonymResponse(BaseModel):
+    word: str
+    term: List[SynonymResponseTerm]
+
+@app.get("/synonyms", response_model=SynonymResponse)
 def get_synonyms(word: str):
 
     terms = []

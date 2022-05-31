@@ -16,7 +16,7 @@ See available environment variables in the configuration section
 
 ### From source
 
-1. Install Python 3
+1. Install Python 3.6 or above
 
 2. Clone the repository
 
@@ -60,24 +60,22 @@ The application is configured by setting following environment variables:
 |-----|-------|--------|
 |`word`|None|True|
 
-#### Response Format
+#### Response Model
 
-```ts
-type Response = {
-  word: string
-  terms: Term[]
-}
+```py
+class SynonymResponseTerm(BaseModel):
+    pos: str
+    pos_label: str
+    definition: str
+    examples: List[str]
+    synonyms: List[str]
 
-type Term = {
-  pos: string
-  pos_label: string
-  definition: string
-  examples: string[]
-  synonyms: string[]
-}
+class SynonymResponse(BaseModel):
+    word: str
+    term: List[SynonymResponseTerm]
 ```
 
-(expressed in TypeScript)
+Swagger docs are available under `/docs`
 
 ## WordNet License
 
