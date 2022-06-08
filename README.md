@@ -72,7 +72,8 @@ class SynonymResponseTerm(BaseModel):
 
 class SynonymResponse(BaseModel):
     word: str
-    term: List[SynonymResponseTerm]
+    terms: List[SynonymResponseTerm]
+    license: str
 ```
 
 Swagger docs are available under `/docs`

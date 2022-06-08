@@ -27,7 +27,8 @@ class SynonymResponseTerm(BaseModel):
 
 class SynonymResponse(BaseModel):
     word: str
-    term: List[SynonymResponseTerm]
+    terms: List[SynonymResponseTerm]
+    license: str
 
 @app.get("/synonyms", response_model=SynonymResponse)
 def get_synonyms(word: str):
